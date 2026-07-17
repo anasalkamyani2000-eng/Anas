@@ -103,6 +103,10 @@ function updateHeroTiles(progress){
     // subtle dark overlay so the headline stays readable throughout
     ctx.fillStyle = 'rgba(23,21,20,0.28)';
     ctx.fillRect(0,0,W,H);
+    // mask the source video's burned-in watermark (bottom-right corner of the original frame)
+    const wmW = dw*0.17, wmH = dh*0.065;
+    ctx.fillStyle = '#27272A';
+    ctx.fillRect(dx+dw-wmW, dy+dh-wmH, wmW, wmH);
   }
 
   resize();
@@ -145,12 +149,18 @@ function updateHeroTiles(progress){
   const steps = document.querySelectorAll('[data-story-step]');
   const images = document.querySelectorAll('[data-story-image]');
   const dots = document.querySelectorAll('[data-story-dot]');
-  if(!steps.length) return;
+  const countEl = document.querySelector('[data-story-count]');
+  const total = steps.length;
+  if(!total) return;
 
   const setActive = (index)=>{
     steps.forEach(s=>s.classList.toggle('active', s.dataset.storyStep === String(index)));
     images.forEach(i=>i.classList.toggle('active', i.dataset.storyImage === String(index)));
     dots.forEach(d=>d.classList.toggle('active', d.dataset.storyDot === String(index)));
+    if(countEl){
+      const n = String(Number(index)+1).padStart(2,'0');
+      countEl.textContent = `${n} / ${String(total).padStart(2,'0')}`;
+    }
   };
 
   const observer = new IntersectionObserver((entries)=>{

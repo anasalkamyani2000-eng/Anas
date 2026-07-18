@@ -163,13 +163,28 @@ function updateHeroTiles(progress){
     }
   };
 
-  const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        setActive(entry.target.dataset.storyStep);
-      }
+  // Robust across devices: pick whichever step's center is closest to the
+  // viewport's center, recalculated on every scroll frame. Avoids relying
+  // on 100vh / IntersectionObserver margins, which behave inconsistently
+  // with mobile Safari's dynamic toolbar.
+  let ticking = false;
+  function updateActive(){
+    ticking = false;
+    const viewportCenter = window.innerHeight / 2;
+    let closestIndex = steps[0].dataset.storyStep;
+    let closestDist = Infinity;
+    steps.forEach(step=>{
+      const rect = step.getBoundingClientRect();
+      const center = rect.top + rect.height/2;
+      const dist = Math.abs(center - viewportCenter);
+      if(dist < closestDist){ closestDist = dist; closestIndex = step.dataset.storyStep; }
     });
-  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
-
-  steps.forEach(step=>observer.observe(step));
+    setActive(closestIndex);
+  }
+  function onScroll(){
+    if(!ticking){ requestAnimationFrame(updateActive); ticking = true; }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  updateActive();
 })();

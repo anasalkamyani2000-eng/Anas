@@ -299,10 +299,10 @@ body.lang-ar .material-card h3{font-family:var(--font-display-ar);}
 @media (max-width:520px){.footer__grid{grid-template-columns:1fr;}}
 
 /* ---------- Scroll-toggle story section ---------- */
-.story{position:relative;background:var(--charcoal);overflow:hidden;}
+.story{position:relative;background:var(--charcoal);}
 .story__pattern{position:absolute;z-index:0;pointer-events:none;opacity:0.16;}
-.story__pattern--tl{top:-30px;inset-inline-start:-40px;width:260px;}
-.story__pattern--br{bottom:-40px;inset-inline-end:-30px;width:300px;}
+.story__pattern--tl{top:0;inset-inline-start:0;width:220px;}
+.story__pattern--br{bottom:0;inset-inline-end:0;width:260px;}
 .story__pattern--frame{display:none;}
 .story__icon{color:var(--rust);margin-bottom:14px;display:block;}
 .story__grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:var(--container);margin-inline:auto;}

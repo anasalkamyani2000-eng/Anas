@@ -300,7 +300,7 @@ body.lang-ar .material-card h3{font-family:var(--font-display-ar);}
 
 /* ---------- Scroll-toggle story section ---------- */
 .story{position:relative;background:var(--charcoal);}
-.story__pattern{position:absolute;z-index:0;pointer-events:none;opacity:0.16;}
+.story__pattern{position:absolute;z-index:0;pointer-events:none;opacity:0.9;}
 .story__pattern--tl{top:0;inset-inline-start:0;width:220px;}
 .story__pattern--br{bottom:0;inset-inline-end:0;width:260px;}
 .story__pattern--frame{display:none;}
@@ -330,8 +330,8 @@ body.lang-ar .story__step h3{font-family:var(--font-display-ar);font-weight:700;
 .story__step p{color:var(--stone-grey);font-size:15px;line-height:1.8;max-width:440px;}
 @media (max-width:860px){
   .story__grid{grid-template-columns:1fr;}
-  .story__sticky{position:relative;height:60vh;padding:32px 24px;}
-  .story__step{min-height:auto;padding:48px 24px;}
+  .story__sticky{position:sticky;top:0;height:50vh;padding:20px;}
+  .story__step{min-height:45vh;padding:32px 24px;justify-content:flex-start;}
   .story__pattern--tl,.story__pattern--br{opacity:.12;width:160px;}
 }
 .page-hero{
